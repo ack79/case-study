@@ -14,6 +14,13 @@ if (!['dev', 'prod'].includes(mode)) {
 export default {
   nodeResolve: {exportConditions: mode === 'dev' ? ['development'] : []},
   preserveSymlinks: true,
+  // SPA routing için gerekli ayarlar
+  port: 8000,
+  hostname: '0.0.0.0',
+  open: false,
+  watch: true,
+  appIndex: 'index.html',
+  historyApiFallback: true,
   plugins: [
     legacyPlugin({
       polyfills: {

@@ -1,11 +1,24 @@
 <!doctype html>
-
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Lit Starter Kit</title>
-  </head>
-  <body>
-    <a href="/dev/index.html">Component Demo</a>
-  </body>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Management App</title>
+  <script type="module" src="./src/router.js"></script>
+  <link rel="stylesheet" href="./src/styles/main.css">
+</head>
+<body>
+  <nav>
+    <a href="/">Ana Sayfa</a>
+    <a href="/test-ui">Test UI</a>
+    <!-- TODO: navigasyon -->
+  </nav>
+  
+  <div id="outlet"></div>
+  
+  <script type="module">
+    import { initRouter } from './src/router.js';
+    initRouter(document.getElementById('outlet'));
+  </script>
+</body>
 </html>
