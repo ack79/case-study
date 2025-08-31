@@ -1,0 +1,37 @@
+{
+  "root": true,
+  "extends": [
+    "eslint:recommended",
+    "prettier"
+  ],
+  "parser": "@babel/eslint-parser",
+  "globals": {
+    "chai": "readonly"
+  },
+  "parserOptions": {
+    "requireConfigFile": false,
+    "sourceType": "module",
+    "ecmaVersion": "latest"
+  },
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true,
+    "jest": true
+  },
+  "rules": {
+    "no-unexpected-multiline": "off",
+    "no-unused-vars": "warn",
+    "no-console": "warn",
+    "prefer-const": "error",
+    "no-var": "error"
+  },
+  "overrides": [
+    {
+      "files": ["rollup.config.js", "web-test-runner.config.js"],
+      "env": {
+        "node": true
+      }
+    }
+  ]
+}
