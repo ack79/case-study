@@ -2,7 +2,7 @@ import { LitElement, html, css } from 'lit';
 
 export class AppButton extends LitElement {
   static properties = {
-    variant: { type: String }, // primary, secondary, danger, outlined, icon-only
+    variant: { type: String }, // primary, secondary, danger, outlined, cancel, icon-only, icon-only-outlined, icon-only-primary
     size: { type: String }, // small, medium, large
     icon: { type: String }, // Material icon name
     iconPosition: { type: String }, // left, right
@@ -141,6 +141,18 @@ export class AppButton extends LitElement {
 
     .btn--outlined.btn--danger:hover:not(:disabled) {
       background-color: #EF4444;
+      color: white;
+    }
+
+    /* Cancel variant */
+    .btn--cancel {
+      background-color: transparent;
+      color: #6A5ACD;
+      border: 2px solid #6A5ACD;
+    }
+
+    .btn--cancel:hover:not(:disabled) {
+      background-color: #6A5ACD;
       color: white;
     }
 
