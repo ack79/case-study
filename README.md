@@ -20,6 +20,11 @@ Open http://localhost:8000 in your browser.
 npm test
 ```
 
+**Note:** If tests fail with browser-related errors, you may need to install browser dependencies:
+```bash
+npx playwright install
+```
+
 ## How It Works
 
 The app loads with 50 sample employee records that are saved in your browser. You can add, edit, delete, and search through employees. All changes are automatically saved and will persist when you refresh the page.
