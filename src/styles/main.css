@@ -16,6 +16,19 @@ body {
   background-color: #F8F8F8;
 }
 
+/* Layout container for all pages */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+@media (min-width: 1440px) {
+  .container { max-width: 1280px; }
+}
+
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
   padding: 0;
