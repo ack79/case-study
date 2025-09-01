@@ -64,7 +64,15 @@
       "invalidPhone": "Please enter a valid phone number",
       "futureDate": "Future date cannot be selected",
       "pastDate": "Past date cannot be selected",
-      "uniqueEmail": "This email address is already in use"
+      "uniqueEmail": "This email address is already in use",
+      "invalidCharacters": "Contains invalid characters",
+      "invalidName": "Only letters, spaces, hyphens and apostrophes are allowed",
+      "nameTooShort": "Must be at least 2 characters long",
+      "nameTooLong": "Must be no more than 50 characters long",
+      "futureEmploymentDate": "Employment date cannot be in the future",
+      "minimumAge": "Must be at least 18 years old",
+      "maximumAge": "Must be no more than 100 years old",
+      "formErrors": "Please fix the form errors"
     },
     "buttons": {
       "save": "Save",
@@ -83,8 +91,12 @@
     "employeeUpdated": "Employee updated successfully",
     "employeeDeleted": "Employee deleted successfully",
     "employeesDeleted": "employees deleted successfully",
+    "addEmployeeError": "An error occurred while adding employee",
+    "updateEmployeeError": "An error occurred while updating employee",
+    "employeeNotFound": "Employee not found",
     "confirmDelete": "Are you sure you want to delete this employee?",
     "confirmDeleteEmployee": "will be deleted. Are you sure?",
-    "confirmUpdate": "Are you sure you want to save the changes?"
+    "confirmUpdate": "Save Changes",
+    "confirmUpdateMessage": "Are you sure you want to update this employee's information?"
   }
 }

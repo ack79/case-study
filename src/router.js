@@ -1,5 +1,6 @@
 import { Router } from '@vaadin/router';
 import './pages/home.js';
+import './pages/add-employee.js';
 import './pages/test-ui.js';
 import './pages/not-found.js';
 import { initializeStores } from './store/index.js';
@@ -8,6 +9,14 @@ const routes = [
   {
     path: '/',
     component: 'home-page'
+  },
+  {
+    path: '/add-employee',
+    component: 'add-employee-page'
+  },
+  {
+    path: '/edit-employee/:id',
+    component: 'add-employee-page'
   },
   {
     path: '/test-ui',
@@ -20,8 +29,6 @@ const routes = [
 ];
 
 export async function initRouter(outlet) {
-  console.log('Router outlet:', outlet);
-  console.log('Routes:', routes);
   
   // Initialize stores and i18n
   await initializeStores();

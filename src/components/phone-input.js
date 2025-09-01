@@ -171,6 +171,44 @@ export class PhoneInput extends LitElement {
     this._isInitialized = false;
   }
 
+  updated(changedProperties) {
+    super.updated(changedProperties);
+    
+    // If value prop changed from outside, parse it and update internal state
+    if (changedProperties.has('value')) {
+      this._parseExternalValue();
+    }
+  }
+
+  _parseExternalValue() {
+    if (!this.value) {
+      this._userDigits = '';
+      this._isInitialized = false;
+      this.requestUpdate();
+      return;
+    }
+
+    // Parse formatted phone number like "+(90) 536 632 90 23"
+    const digitsOnly = this.value.replace(/\D/g, '');
+    
+    // If it starts with 90, remove country code
+    if (digitsOnly.startsWith('90')) {
+      this._userDigits = digitsOnly.substring(2);
+    } else {
+      this._userDigits = digitsOnly;
+    }
+    
+    // Ensure it starts with 5 (Turkish mobile format)
+    if (this._userDigits && !this._userDigits.startsWith('5')) {
+      this._userDigits = '5' + this._userDigits;
+    }
+    
+    this._isInitialized = true;
+    
+    // Force re-render to show the parsed value
+    this.requestUpdate();
+  }
+
   render() {
     const inputClasses = [
       'input',
@@ -271,10 +309,17 @@ export class PhoneInput extends LitElement {
       const newDisplayValue = this._getDisplayValue();
       event.target.value = newDisplayValue;
       
-      // Set cursor position
+      // Set cursor position safely
       const cursorPos = '+(90) '.length + this._formatDigits(digitsOnly).length;
       setTimeout(() => {
-        event.target.setSelectionRange(cursorPos, cursorPos);
+        if (event.target && typeof event.target.setSelectionRange === 'function') {
+          try {
+            event.target.setSelectionRange(cursorPos, cursorPos);
+          } catch (error) {
+            // Silently ignore cursor positioning errors
+            console.debug('Could not set cursor position:', error);
+          }
+        }
       }, 0);
       
       this.dispatchEvent(new CustomEvent('phone-change', {

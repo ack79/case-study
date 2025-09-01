@@ -461,10 +461,8 @@ export class EmployeeList extends LitElement {
 
   _handleEmployeeDelete(event) {
     const { employee } = event.detail;
-    console.log('Delete employee:', employee);
     this.employeeToDelete = employee;
     this.modalOpen = true;
-    console.log('Modal should be open:', this.modalOpen);
   }
 
   _formatDate(dateString) {
@@ -515,13 +513,11 @@ export class EmployeeList extends LitElement {
 
   _handlePageChange(event) {
     const { page } = event.detail;
-    console.log('Page changed to:', page);
     // Store already handles the page change via pagination component
   }
 
   _handleItemsPerPageChange(event) {
     const { itemsPerPage } = event.detail;
-    console.log('Items per page changed to:', itemsPerPage);
     // Store already handles the items per page change via pagination component
   }
 

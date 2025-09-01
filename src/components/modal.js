@@ -223,15 +223,12 @@ export class Modal extends LitElement {
 
   updated(changedProperties) {
     if (changedProperties.has('isOpen')) {
-      console.log('Modal isOpen changed:', this.isOpen);
       if (this.isOpen) {
         document.body.style.overflow = 'hidden';
         this.setAttribute('is-open', '');
-        console.log('Modal opened, attribute set');
       } else {
         document.body.style.overflow = '';
         this.removeAttribute('is-open');
-        console.log('Modal closed, attribute removed');
       }
     }
   }

@@ -147,13 +147,14 @@ export class AppButton extends LitElement {
     /* Cancel variant */
     .btn--cancel {
       background-color: transparent;
-      color: #6A5ACD;
-      border: 2px solid #6A5ACD;
+      color: #6B7280;
+      border: 2px solid #D1D5DB;
     }
 
     .btn--cancel:hover:not(:disabled) {
-      background-color: #6A5ACD;
-      color: white;
+      background-color: #F9FAFB;
+      color: #374151;
+      border-color: #9CA3AF;
     }
 
     /* Purple variant */
@@ -227,6 +228,11 @@ export class AppButton extends LitElement {
     .btn--full-width {
       width: 100%;
       margin: 4px 0;
+    }
+
+    /* CSS Custom Properties for external control */
+    .btn {
+      width: var(--button-width, auto);
     }
 
     /* Icon styles */

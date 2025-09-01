@@ -42,14 +42,13 @@ export class HomePage extends LitElement {
 
   _handleEmployeeEdit(event) {
     const { employee } = event.detail;
-    console.log('Edit employee:', employee);
-    // TODO: Navigate to edit page or open edit modal
-    alert(`Edit functionality will be implemented for: ${employee.firstName} ${employee.lastName}`);
+    // Navigate to edit employee page
+    window.history.pushState({}, '', `/edit-employee/${employee.id}`);
+    window.dispatchEvent(new PopStateEvent('popstate'));
   }
 
   _handleBulkDelete(event) {
     const { selectedEmployees, count } = event.detail;
-    console.log('Bulk delete requested:', selectedEmployees, count);
     
     // Dispatch event to employee-list for modal handling
     const employeeList = this.shadowRoot.querySelector('employee-list');

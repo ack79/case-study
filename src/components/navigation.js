@@ -297,10 +297,9 @@ export class Navigation extends LitElement {
   }
 
   _handleAddClick() {
-    this.dispatchEvent(new CustomEvent('add-employee', {
-      bubbles: true,
-      composed: true
-    }));
+    // Navigate to add employee page
+    window.history.pushState({}, '', '/add-employee');
+    window.dispatchEvent(new PopStateEvent('popstate'));
   }
 
   _handleLanguageClick() {

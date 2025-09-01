@@ -38,10 +38,13 @@ const generateDefaultEmployees = () => {
     birthDate.setDate(Math.floor(Math.random() * 28) + 1);
     birthDate.setMonth(Math.floor(Math.random() * 12));
     
-    // Generate phone number
+    // Generate phone number in format +(90) 5XX XXX XX XX
     const phonePrefix = '+(90) 5';
-    const phoneSuffix = Math.floor(Math.random() * 90000000) + 10000000;
-    const phone = `${phonePrefix}${phoneSuffix.toString().slice(0, 2)} ${phoneSuffix.toString().slice(2, 5)} ${phoneSuffix.toString().slice(5, 7)} ${phoneSuffix.toString().slice(7, 9)}`;
+    const part1 = Math.floor(Math.random() * 90) + 10; // 10-99
+    const part2 = Math.floor(Math.random() * 900) + 100; // 100-999
+    const part3 = Math.floor(Math.random() * 90) + 10; // 10-99
+    const part4 = Math.floor(Math.random() * 90) + 10; // 10-99
+    const phone = `${phonePrefix}${part1} ${part2} ${part3} ${part4}`;
     
     // Generate email
     const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}@ing.com`;

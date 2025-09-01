@@ -64,7 +64,15 @@
       "invalidPhone": "Geçerli bir telefon numarası girin",
       "futureDate": "Gelecek tarih seçilemez",
       "pastDate": "Geçmiş tarih seçilemez",
-      "uniqueEmail": "Bu e-posta adresi zaten kullanılıyor"
+      "uniqueEmail": "Bu e-posta adresi zaten kullanılıyor",
+      "invalidCharacters": "Geçersiz karakterler içeriyor",
+      "invalidName": "Sadece harfler, boşluk, tire ve kesme işareti kullanılabilir",
+      "nameTooShort": "En az 2 karakter olmalıdır",
+      "nameTooLong": "En fazla 50 karakter olabilir",
+      "futureEmploymentDate": "İşe giriş tarihi bugünden sonra olamaz",
+      "minimumAge": "En az 18 yaşında olmalıdır",
+      "maximumAge": "En fazla 100 yaşında olabilir",
+      "formErrors": "Lütfen form hatalarını düzeltin"
     },
     "buttons": {
       "save": "Kaydet",
@@ -83,8 +91,12 @@
     "employeeUpdated": "Çalışan başarıyla güncellendi",
     "employeeDeleted": "Çalışan başarıyla silindi",
     "employeesDeleted": "çalışan başarıyla silindi",
+    "addEmployeeError": "Çalışan eklenirken bir hata oluştu",
+    "updateEmployeeError": "Çalışan güncellenirken bir hata oluştu",
+    "employeeNotFound": "Çalışan bulunamadı",
     "confirmDelete": "Bu çalışanı silmek istediğinizden emin misiniz?",
     "confirmDeleteEmployee": "adlı çalışanı silmek istediğinizden emin misiniz?",
-    "confirmUpdate": "Değişiklikleri kaydetmek istediğinizden emin misiniz?"
+    "confirmUpdate": "Değişiklikleri Kaydet",
+    "confirmUpdateMessage": "Bu çalışanın bilgilerini güncellemek istediğinizden emin misiniz?"
   }
 }
