@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import './button.js';
 import { useEmployeeStore } from '../store/index.js';
+import { t, addLanguageChangeListener } from '../utils/i18n.js';
 
 export class EmployeeListHeader extends LitElement {
   static properties = {
@@ -88,6 +89,9 @@ export class EmployeeListHeader extends LitElement {
         this.viewMode = state.viewMode;
       }
     });
+    
+    // Add language change listener
+    addLanguageChangeListener(this);
   }
 
   disconnectedCallback() {
@@ -98,10 +102,10 @@ export class EmployeeListHeader extends LitElement {
   render() {
     return html`
       <div class="title-bar">
-        <div class="title">Employee List</div>
+        <div class="title">${t('employeeList.title')}</div>
         <div class="actions">
-          ${this._renderModeButton('table', 'density_medium', 'Tablo')}
-          ${this._renderModeButton('card', 'view_module', 'Kart')}
+          ${this._renderModeButton('table', 'density_medium', t('employeeList.viewMode.table'))}
+          ${this._renderModeButton('card', 'view_module', t('employeeList.viewMode.card'))}
         </div>
       </div>
     `;

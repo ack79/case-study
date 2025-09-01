@@ -1,5 +1,6 @@
 import { LitElement, html, css } from 'lit';
 import { useUIStore } from '../store/index.js';
+import { t, addLanguageChangeListener } from '../utils/i18n.js';
 
 export class Navigation extends LitElement {
   static properties = {
@@ -213,6 +214,27 @@ export class Navigation extends LitElement {
     this.currentPage = '';
     this.language = 'tr';
     this.isMenuOpen = false;
+    
+    // Initialize language from store
+    this._updateLanguageFromStore();
+    
+    // Subscribe to store changes
+    this._unsubscribe = useUIStore.subscribe((state) => {
+      if (state.language !== this.language) {
+        this.language = state.language;
+        this.requestUpdate();
+      }
+    });
+    
+    // Add language change listener
+    addLanguageChangeListener(this);
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    if (this._unsubscribe) {
+      this._unsubscribe();
+    }
   }
 
   render() {
@@ -230,13 +252,13 @@ export class Navigation extends LitElement {
         <div class="nav-right">
           <a href="/" class="nav-item ${this.currentPage === 'home' ? 'active' : ''}">
             <span class="material-icons">people</span>
-            <span>Employees</span>
+            <span>${t('navigation.employees')}</span>
           </a>
 
           ${this.showAddButton ? html`
             <button class="add-button" @click="${this._handleAddClick}">
               <span class="material-icons">add</span>
-              <span>Add New</span>
+              <span>${t('navigation.addNew')}</span>
             </button>
           ` : ''}
 
@@ -256,12 +278,12 @@ export class Navigation extends LitElement {
         <div class="sidebar" @click="${(e) => e.stopPropagation()}">
           <a href="/" class="nav-item" @click="${this._closeMenu}">
             <span class="material-icons">people</span>
-            <span>Employees</span>
+            <span>${t('navigation.employees')}</span>
           </a>
           ${this.showAddButton ? html`
             <button class="add-button" @click="${() => { this._handleAddClick(); this._closeMenu(); }}">
               <span class="material-icons">add</span>
-              <span>Add New</span>
+              <span>${t('navigation.addNew')}</span>
             </button>
           ` : ''}
           <div class="language-switcher" @click="${() => { this._handleLanguageClick(); }}">
@@ -283,18 +305,22 @@ export class Navigation extends LitElement {
 
   _handleLanguageClick() {
     // Toggle language
-    this.language = this.language === 'tr' ? 'en' : 'tr';
-    // Update store
+    const newLanguage = this.language === 'tr' ? 'en' : 'tr';
+    
+    // Update store - store subscription will handle the component update
+    const ui = useUIStore.getState();
+    ui.setLanguage(newLanguage);
+  }
+
+  _updateLanguageFromStore() {
     try {
       const ui = useUIStore.getState();
-      if (ui?.setLanguage) ui.setLanguage(this.language);
-    } catch (_) {}
-    
-    this.dispatchEvent(new CustomEvent('language-toggle', {
-      detail: { language: this.language },
-      bubbles: true,
-      composed: true
-    }));
+      if (ui?.language) {
+        this.language = ui.language;
+      }
+    } catch (error) {
+      console.error('Error updating language from store:', error);
+    }
   }
 
   _toggleMenu() {

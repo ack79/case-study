@@ -1,0 +1,77 @@
+{
+  "common": {
+    "addNew": "Yeni Ekle",
+    "edit": "Düzenle",
+    "delete": "Sil",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "search": "Ara",
+    "filter": "Filtrele",
+    "clear": "Temizle",
+    "loading": "Yükleniyor...",
+    "noData": "Veri bulunamadı",
+    "confirm": "Onayla",
+    "close": "Kapat"
+  },
+  "navigation": {
+    "employees": "Çalışanlar",
+    "addNew": "Yeni Ekle",
+    "language": "Dil"
+  },
+  "employeeList": {
+    "title": "Çalışan Listesi",
+    "viewMode": {
+      "table": "Tablo",
+      "card": "Kart"
+    },
+    "searchPlaceholder": "Çalışan ara...",
+    "department": "Departman",
+    "position": "Pozisyon",
+    "allDepartments": "Tüm Departmanlar",
+    "allPositions": "Tüm Pozisyonlar",
+    "departments": {
+      "analytics": "Analitik",
+      "tech": "Teknoloji"
+    },
+    "positions": {
+      "junior": "Junior",
+      "medior": "Medior", 
+      "senior": "Senior"
+    }
+  },
+  "employeeForm": {
+    "title": {
+      "add": "Yeni Çalışan Ekle",
+      "edit": "Çalışan Düzenle"
+    },
+    "fields": {
+      "firstName": "Ad",
+      "lastName": "Soyad",
+      "dateOfEmployment": "İşe Giriş Tarihi",
+      "dateOfBirth": "Doğum Tarihi",
+      "phoneNumber": "Telefon Numarası",
+      "email": "E-posta Adresi",
+      "department": "Departman",
+      "position": "Pozisyon"
+    },
+    "validation": {
+      "required": "Bu alan zorunludur",
+      "invalidEmail": "Geçerli bir e-posta adresi girin",
+      "invalidPhone": "Geçerli bir telefon numarası girin",
+      "futureDate": "Gelecek tarih seçilemez",
+      "pastDate": "Geçmiş tarih seçilemez",
+      "uniqueEmail": "Bu e-posta adresi zaten kullanılıyor"
+    },
+    "buttons": {
+      "save": "Kaydet",
+      "cancel": "İptal"
+    }
+  },
+  "messages": {
+    "employeeAdded": "Çalışan başarıyla eklendi",
+    "employeeUpdated": "Çalışan başarıyla güncellendi",
+    "employeeDeleted": "Çalışan başarıyla silindi",
+    "confirmDelete": "Bu çalışanı silmek istediğinizden emin misiniz?",
+    "confirmUpdate": "Değişiklikleri kaydetmek istediğinizden emin misiniz?"
+  }
+}

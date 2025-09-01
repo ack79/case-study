@@ -17,8 +17,20 @@ export const useUIStore = createStore(
       // Actions
       setLanguage: (language) => {
         set({ language });
+        
         // Update HTML lang attribute
         document.documentElement.lang = language;
+        
+        // Load translations and dispatch language change event
+        import('../utils/i18n.js').then(({ loadTranslations }) => {
+          return loadTranslations(language);
+        }).then(() => {
+          document.dispatchEvent(new CustomEvent('language-changed', {
+            detail: { language }
+          }));
+        }).catch(error => {
+          console.error('Translation loading error:', error);
+        });
       },
 
 

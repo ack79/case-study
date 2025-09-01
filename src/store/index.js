@@ -2,22 +2,27 @@
 export { useEmployeeStore } from './employeeStore.js';
 export { useUIStore } from './uiStore.js';
 
+// Import stores for internal use
+import { useEmployeeStore } from './employeeStore.js';
+import { useUIStore } from './uiStore.js';
+
 // Store initialization
-export const initializeStores = () => {
-  // Initialize UI store with current language
-  const uiStore = useUIStore.getState();
+export const initializeStores = async () => {
+  // Initialize i18n first
+  const { initializeI18n } = await import('../utils/i18n.js');
+  const language = await initializeI18n();
   
-  // Set initial language from HTML lang attribute
-  const htmlLang = document.documentElement.lang || 'tr';
-  if (htmlLang !== uiStore.language) {
-    uiStore.setLanguage(htmlLang);
+  // Initialize UI store with current language
+  const uiStoreState = useUIStore.getState();
+  if (language !== uiStoreState.language) {
+    uiStoreState.setLanguage(language);
   }
   
   // Initialize employee store
-  const employeeStore = useEmployeeStore.getState();
+  const employeeStoreState = useEmployeeStore.getState();
   
   // Update filtered employees on initialization
-  employeeStore.updateFilteredEmployees();
+  employeeStoreState.updateFilteredEmployees();
 };
 
 // Store utilities
