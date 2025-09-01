@@ -9,7 +9,7 @@
     "filter": "Filtrele",
     "clear": "Temizle",
     "loading": "Yükleniyor...",
-    "noData": "Veri bulunamadı",
+    "noData": "Çalışan bulunamadı",
     "confirm": "Onayla",
     "close": "Kapat"
   },
@@ -66,6 +66,13 @@
       "save": "Kaydet",
       "cancel": "İptal"
     }
+  },
+  "pagination": {
+    "itemsPerPage": "Sayfa başına:",
+    "showing": "Gösterilen",
+    "of": "toplam",
+    "previous": "Önceki",
+    "next": "Sonraki"
   },
   "messages": {
     "employeeAdded": "Çalışan başarıyla eklendi",

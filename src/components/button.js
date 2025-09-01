@@ -156,6 +156,28 @@ export class AppButton extends LitElement {
       color: white;
     }
 
+    /* Purple variant */
+    .btn--purple {
+      background-color: #6A5ACD;
+      color: white;
+    }
+
+    .btn--purple:hover:not(:disabled) {
+      background-color: #5B4DB8;
+    }
+
+    /* Purple outlined variant */
+    .btn--outlined.btn--purple {
+      background-color: transparent;
+      color: #6A5ACD;
+      border-color: #6A5ACD;
+    }
+
+    .btn--outlined.btn--purple:hover:not(:disabled) {
+      background-color: #6A5ACD;
+      color: white;
+    }
+
     /* Icon-only variants */
     .btn--icon-only {
       background-color: transparent;
@@ -166,6 +188,19 @@ export class AppButton extends LitElement {
 
     .btn--icon-only:hover:not(:disabled) {
       background-color: rgba(255, 98, 11, 0.1);
+    }
+
+    /* Icon-only outlined variant */
+    .btn--icon-only-outlined {
+      background-color: transparent;
+      color: #FF620B;
+      border: 2px solid #FF620B;
+      border-radius: 50%;
+    }
+
+    .btn--icon-only-outlined:hover:not(:disabled) {
+      background-color: #FF620B;
+      color: white;
     }
 
     .btn--icon-only.btn--primary {
@@ -315,11 +350,12 @@ export class AppButton extends LitElement {
   }
 
   render() {
+    const variants = this.variant.split(' ');
     const buttonClasses = [
       'btn',
-      `btn--${this.variant}`,
+      ...variants.map(v => `btn--${v}`),
       `btn--${this.size}`,
-      this.variant === 'icon-only' ? 'btn--icon-only' : '',
+      (this.variant.includes('icon-only')) ? 'btn--icon-only' : '',
       this.fullWidth ? 'btn--full-width' : '',
       this.loading ? 'btn--loading' : ''
     ].filter(Boolean).join(' ');
@@ -329,21 +365,23 @@ export class AppButton extends LitElement {
         class="${buttonClasses}"
         ?disabled="${this.disabled || this.loading}"
         @click="${this._handleClick}"
-        title="${this.variant === 'icon-only' ? this.getAttribute('title') || '' : ''}"
+        title="${this.variant.includes('icon-only') ? this.getAttribute('title') || '' : ''}"
       >
         ${this.loading ? html`<div class="btn__loading"></div>` : ''}
         
         <div class="btn__content">
-          ${this.icon && this.iconPosition === 'left' ? 
-            html`<span class="btn__icon btn__icon--left">${this.icon}</span>` : ''}
-          
-          ${this.variant !== 'icon-only' ? html`<slot></slot>` : ''}
-          
-          ${this.icon && this.iconPosition === 'right' ? 
-            html`<span class="btn__icon btn__icon--right">${this.icon}</span>` : ''}
-          
-          ${this.variant === 'icon-only' && this.icon ? 
-            html`<span class="btn__icon">${this.icon}</span>` : ''}
+          ${this.variant.includes('icon-only') ? 
+            html`<span class="btn__icon">${this.icon}</span>` : 
+            html`
+              ${this.icon && this.iconPosition === 'left' ? 
+                html`<span class="btn__icon btn__icon--left">${this.icon}</span>` : ''}
+              
+              <slot></slot>
+              
+              ${this.icon && this.iconPosition === 'right' ? 
+                html`<span class="btn__icon btn__icon--right">${this.icon}</span>` : ''}
+            `
+          }
         </div>
       </button>
     `;

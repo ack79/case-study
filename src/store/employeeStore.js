@@ -52,7 +52,7 @@ const generateDefaultEmployees = () => {
       lastName,
       dateOfEmployment: employmentDate.toISOString().split('T')[0],
       dateOfBirth: birthDate.toISOString().split('T')[0],
-      phone,
+      phoneNumber: phone,
       email,
       department,
       position,
@@ -70,7 +70,7 @@ export const useEmployeeStore = createStore(
       employees: generateDefaultEmployees(),
       filteredEmployees: [],
       selectedEmployees: [],
-      viewMode: 'table', // 'table' or 'list'
+      viewMode: 'card', // 'card' or 'table'
       searchTerm: '',
       filters: {
         department: '',

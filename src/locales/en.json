@@ -9,7 +9,7 @@
     "filter": "Filter",
     "clear": "Clear",
     "loading": "Loading...",
-    "noData": "No data found",
+    "noData": "No employees found",
     "confirm": "Confirm",
     "close": "Close"
   },
@@ -66,6 +66,13 @@
       "save": "Save",
       "cancel": "Cancel"
     }
+  },
+  "pagination": {
+    "itemsPerPage": "Items per page:",
+    "showing": "Showing",
+    "of": "of",
+    "previous": "Previous",
+    "next": "Next"
   },
   "messages": {
     "employeeAdded": "Employee added successfully",

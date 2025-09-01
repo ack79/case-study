@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import '../components/navigation.js';
 import '../components/employee-list-header.js';
+import '../components/employee-list.js';
 
 export class HomePage extends LitElement {
   static styles = css`
@@ -19,6 +20,10 @@ export class HomePage extends LitElement {
     @media (min-width: 1440px) {
       .container { max-width: 1280px; }
     }
+
+    .employee-content {
+      margin-top: 20px;
+    }
   `;
 
   render() {
@@ -26,8 +31,18 @@ export class HomePage extends LitElement {
       <app-navigation current-page="home" language="tr"></app-navigation>
       <div class="container">
         <employee-list-header></employee-list-header>
+        <div class="employee-content">
+          <employee-list @employee-edit="${this._handleEmployeeEdit}"></employee-list>
+        </div>
       </div>
     `;
+  }
+
+  _handleEmployeeEdit(event) {
+    const { employee } = event.detail;
+    console.log('Edit employee:', employee);
+    // TODO: Navigate to edit page or open edit modal
+    alert(`Edit functionality will be implemented for: ${employee.firstName} ${employee.lastName}`);
   }
 }
 
