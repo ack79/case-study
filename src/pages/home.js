@@ -3,6 +3,7 @@ import '../components/navigation.js';
 import '../components/employee-list-header.js';
 import '../components/search-filter.js';
 import '../components/employee-list.js';
+import { useEmployeeStore } from '../store/index.js';
 
 export class HomePage extends LitElement {
   static styles = css`
@@ -26,6 +27,13 @@ export class HomePage extends LitElement {
       margin-top: 20px;
     }
   `;
+
+  connectedCallback() {
+    super.connectedCallback();
+    // Initialize default data if needed
+    const store = useEmployeeStore.getState();
+    store.initializeDefaultData();
+  }
 
   render() {
           return html`

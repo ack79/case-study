@@ -1,4 +1,5 @@
 import { createStore } from 'zustand/vanilla';
+import { persist } from 'zustand/middleware';
 
 // Employee data structure
 const generateDefaultEmployees = () => {
@@ -68,9 +69,10 @@ const generateDefaultEmployees = () => {
 };
 
 export const useEmployeeStore = createStore(
-  (set, get) => ({
+  persist(
+    (set, get) => ({
       // State
-      employees: generateDefaultEmployees(),
+      employees: [],
       filteredEmployees: [],
       selectedEmployees: [],
       viewMode: 'card', // 'card' or 'table'
@@ -320,6 +322,28 @@ export const useEmployeeStore = createStore(
 
       clearError: () => {
         set({ error: null });
+      },
+
+      // Initialize with default data if empty
+      initializeDefaultData: () => {
+        const { employees } = get();
+        if (employees.length === 0) {
+          const defaultEmployees = generateDefaultEmployees();
+          set({ employees: defaultEmployees });
+          get().updateFilteredEmployees();
+        }
       }
-    })
-  );
+    }),
+    {
+      name: 'employee-store', // localStorage key
+      partialize: (state) => ({
+        // Only persist these fields
+        employees: state.employees,
+        viewMode: state.viewMode,
+        searchTerm: state.searchTerm,
+        filters: state.filters,
+        sortConfig: state.sortConfig
+      })
+    }
+  )
+);

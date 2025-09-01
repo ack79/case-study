@@ -506,6 +506,16 @@ export class AddEmployeePage extends LitElement {
       return t('employeeForm.validation.invalidPhone');
     }
 
+    // Check for unique phone number
+    const store = useEmployeeStore.getState();
+    const existingEmployee = store.employees.find(emp => 
+      emp.phoneNumber === value &&
+      (!this.isEditMode || emp.id.toString() !== this.employeeId)
+    );
+    if (existingEmployee) {
+      return t('employeeForm.validation.uniquePhone');
+    }
+
     return '';
   }
 

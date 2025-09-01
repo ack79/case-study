@@ -62,6 +62,7 @@
       "required": "This field is required",
       "invalidEmail": "Please enter a valid email address",
       "invalidPhone": "Please enter a valid phone number",
+      "uniquePhone": "This phone number is already in use",
       "futureDate": "Future date cannot be selected",
       "pastDate": "Past date cannot be selected",
       "uniqueEmail": "This email address is already in use",

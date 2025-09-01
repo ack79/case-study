@@ -62,6 +62,7 @@
       "required": "Bu alan zorunludur",
       "invalidEmail": "Geçerli bir e-posta adresi girin",
       "invalidPhone": "Geçerli bir telefon numarası girin",
+      "uniquePhone": "Bu telefon numarası zaten kullanılıyor",
       "futureDate": "Gelecek tarih seçilemez",
       "pastDate": "Geçmiş tarih seçilemez",
       "uniqueEmail": "Bu e-posta adresi zaten kullanılıyor",
