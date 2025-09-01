@@ -94,7 +94,7 @@ export class EmployeeCard extends LitElement {
 
   render() {
     if (!this.employee) {
-      return html`<div class="card">Loading...</div>`;
+      return html`<div class="card">${t('common.loading')}</div>`;
     }
 
     return html`
@@ -103,42 +103,42 @@ export class EmployeeCard extends LitElement {
 
         <div class="card-body">
           <div class="info-item">
-            <span class="info-label">First Name:</span>
+            <span class="info-label">${t('employeeList.fields.firstName')}:</span>
             <span class="info-value">${this.employee.firstName}</span>
           </div>
 
           <div class="info-item">
-            <span class="info-label">Last Name</span>
+            <span class="info-label">${t('employeeList.fields.lastName')}</span>
             <span class="info-value">${this.employee.lastName}</span>
           </div>
 
           <div class="info-item">
-            <span class="info-label">Date of Employment</span>
+            <span class="info-label">${t('employeeList.fields.dateOfEmployment')}</span>
             <span class="info-value">${this._formatDate(this.employee.dateOfEmployment)}</span>
           </div>
 
           <div class="info-item">
-            <span class="info-label">Date of Birth</span>
+            <span class="info-label">${t('employeeList.fields.dateOfBirth')}</span>
             <span class="info-value">${this._formatDate(this.employee.dateOfBirth)}</span>
           </div>
 
           <div class="info-item">
-            <span class="info-label">Phone</span>
+            <span class="info-label">${t('employeeList.fields.phone')}</span>
             <span class="info-value">${this.employee.phoneNumber}</span>
           </div>
 
           <div class="info-item">
-            <span class="info-label">Email</span>
+            <span class="info-label">${t('employeeList.fields.email')}</span>
             <span class="info-value info-value--email">${this.employee.email}</span>
           </div>
 
           <div class="info-item">
-            <span class="info-label">Department</span>
+            <span class="info-label">${t('employeeList.fields.department')}</span>
             <span class="info-value">${this.employee.department}</span>
           </div>
 
           <div class="info-item">
-            <span class="info-label">Position</span>
+            <span class="info-label">${t('employeeList.fields.position')}</span>
             <span class="info-value">${this.employee.position}</span>
           </div>
         </div>

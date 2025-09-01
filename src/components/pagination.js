@@ -145,6 +145,7 @@ export class Pagination extends LitElement {
       .pagination-info {
         order: 2;
         font-size: 12px;
+        align-items: flex-start;
       }
 
       .pagination-controls {

@@ -28,11 +28,23 @@
     "searchPlaceholder": "Çalışan ara...",
     "department": "Departman",
     "position": "Pozisyon",
+    "fields": {
+      "firstName": "Ad",
+      "lastName": "Soyad",
+      "dateOfEmployment": "İşe Giriş Tarihi",
+      "dateOfBirth": "Doğum Tarihi",
+      "phone": "Telefon",
+      "email": "E-posta",
+      "department": "Departman",
+      "position": "Pozisyon",
+      "actions": "İşlemler"
+    },
     "allDepartments": "Tüm Departmanlar",
     "allPositions": "Tüm Pozisyonlar",
     "totalEmployees": "çalışan",
     "selectedEmployees": "seçili",
     "deleteSelected": "Seçilenleri Sil",
+    "noEmployeesFound": "Arama kriterlerinize uygun çalışan bulunamadı",
     "departments": {
       "analytics": "Analitik",
       "tech": "Teknoloji"

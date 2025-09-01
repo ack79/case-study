@@ -28,11 +28,23 @@
     "searchPlaceholder": "Search employees...",
     "department": "Department",
     "position": "Position",
+    "fields": {
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "dateOfEmployment": "Date of Employment",
+      "dateOfBirth": "Date of Birth",
+      "phone": "Phone",
+      "email": "Email",
+      "department": "Department",
+      "position": "Position",
+      "actions": "Actions"
+    },
     "allDepartments": "All Departments",
     "allPositions": "All Positions",
     "totalEmployees": "employees",
     "selectedEmployees": "selected",
     "deleteSelected": "Delete Selected",
+    "noEmployeesFound": "No employees found matching your criteria",
     "departments": {
       "analytics": "Analytics",
       "tech": "Tech"

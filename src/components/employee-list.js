@@ -353,7 +353,7 @@ export class EmployeeList extends LitElement {
       <div class="no-data">
         <div class="no-data-icon">👥</div>
         <div class="no-data-message">${t('common.noData')}</div>
-        <div class="no-data-submessage">No employees found matching your criteria</div>
+        <div class="no-data-submessage">${t('employeeList.noEmployeesFound')}</div>
       </div>
     `;
   }
@@ -384,15 +384,15 @@ export class EmployeeList extends LitElement {
                   @click="${this._toggleSelectAll}"
                 ></div>
               </th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Date of Employment</th>
-              <th>Date of Birth</th>
-              <th>Phone</th>
-              <th>Email</th>
-              <th>Department</th>
-              <th>Position</th>
-              <th>Actions</th>
+              <th>${t('employeeList.fields.firstName')}</th>
+              <th>${t('employeeList.fields.lastName')}</th>
+              <th>${t('employeeList.fields.dateOfEmployment')}</th>
+              <th>${t('employeeList.fields.dateOfBirth')}</th>
+              <th>${t('employeeList.fields.phone')}</th>
+              <th>${t('employeeList.fields.email')}</th>
+              <th>${t('employeeList.fields.department')}</th>
+              <th>${t('employeeList.fields.position')}</th>
+              <th>${t('employeeList.fields.actions')}</th>
             </tr>
           </thead>
           <tbody>
