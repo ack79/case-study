@@ -150,7 +150,8 @@ export class SearchFilter extends LitElement {
 
     .sort-button:hover {
       border-color: #FF620B;
-      color: #FF620B;
+      background: #FF620B;
+      color: white;
     }
 
     .sort-button--active {

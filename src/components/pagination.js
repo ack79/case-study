@@ -87,8 +87,9 @@ export class Pagination extends LitElement {
     }
 
     .page-button:hover:not(:disabled) {
-      background-color: #F3F4F6;
-      color: #374151;
+      background-color: #FF620B;
+      color: #white;
+      border-radius: 50%;
     }
 
     .page-button--active {

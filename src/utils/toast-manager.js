@@ -16,12 +16,36 @@ class ToastManager {
       position: fixed;
       top: 20px;
       right: 20px;
+      bottom: 20px;
       z-index: 10001;
       pointer-events: none;
       display: flex;
       flex-direction: column;
       gap: 12px;
+      justify-content: flex-start;
+      align-items: flex-end;
+      max-width: 400px;
     `;
+    
+    // Add responsive styles for mobile
+    const style = document.createElement('style');
+    style.textContent = `
+        @media (max-width: 768px) {
+          .toast-container {
+            top: auto !important;
+            bottom: 0 !important;
+            right: 50% !important;
+            left: auto !important;
+            max-width: 400px !important;
+            align-items: stretch !important;
+            transform: translateX(50%) !important;
+          }
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Add class for mobile targeting
+    this.container.className = 'toast-container';
     document.body.appendChild(this.container);
   }
 

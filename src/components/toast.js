@@ -176,44 +176,57 @@ export class Toast extends LitElement {
     }
 
     /* Mobile responsive */
-    @media (max-width: 480px) {
+    @media (max-width: 768px) {
       :host([position="top-right"]) {
-        top: 16px;
-        right: 16px;
-        left: 16px;
+        top: auto;
+        bottom: 100px;
+        right: 50%;
+        left: auto;
+        transform: translateX(50%);
       }
 
       :host([position="top-left"]) {
-        top: 16px;
-        left: 16px;
-        right: 16px;
+        top: auto;
+        bottom: 100px;
+        right: 50%;
+        left: auto;
+        transform: translateX(50%);
       }
 
       :host([position="bottom-right"]) {
-        bottom: 16px;
-        right: 16px;
-        left: 16px;
+        top: auto;
+        bottom: 100px;
+        right: 50%;
+        left: auto;
+        transform: translateX(50%);
       }
 
       :host([position="bottom-left"]) {
-        bottom: 16px;
-        left: 16px;
-        right: 16px;
+        top: auto;
+        bottom: 100px;
+        right: 50%;
+        left: auto;
+        transform: translateX(50%);
       }
 
       .toast {
-        min-width: auto;
-        max-width: none;
-        width: 100%;
+        min-width: 300px;
+        max-width: 400px;
+        width: auto;
+        padding: 16px;
+      }
+
+      .toast-message {
+        font-size: 15px;
       }
 
       :host([position*="left"]) .toast,
       :host([position*="right"]) .toast {
-        transform: translateY(-100%);
+        transform: translateY(-50%) translateY(100%);
       }
 
       :host([position*="bottom"]) .toast {
-        transform: translateY(100%);
+        transform: translateY(-50%) translateY(100%);
       }
     }
   `;
