@@ -48,6 +48,10 @@ Run `npm test` to see the test results. The app has comprehensive tests covering
 
 *Note: Some browser logs about missing translation keys are expected in test environment.*
 
+## Architecture
+
+![Architecture Diagram](screenshots/mermaid.png)
+
 ## Tech Stack
 
 - LitElement for web components
