@@ -6,6 +6,7 @@ import { t, addLanguageChangeListener } from '../utils/i18n.js';
 export class EmployeeListHeader extends LitElement {
   static properties = {
     viewMode: { type: String }, // 'table' | 'list' | 'card'
+    selectedEmployees: { type: Array }
   };
 
   static styles = css`
@@ -36,6 +37,43 @@ export class EmployeeListHeader extends LitElement {
       display: flex;
       align-items: center;
       gap: 8px;
+    }
+
+    .bulk-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-left: 16px;
+    }
+
+    .selected-count {
+      font-size: 14px;
+      color: #6B7280;
+      font-weight: 500;
+    }
+
+    .bulk-delete-btn {
+      background: #EF4444;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .bulk-delete-btn:hover {
+      background: #DC2626;
+    }
+
+    .bulk-delete-btn .material-icons {
+      font-family: 'Material Icons';
+      font-size: 16px;
     }
 
     .mode-btn {
@@ -83,10 +121,15 @@ export class EmployeeListHeader extends LitElement {
   constructor() {
     super();
     this.viewMode = useEmployeeStore.getState().viewMode || 'table';
+    this.selectedEmployees = [];
+    
     // subscribe to store changes to reactively update selected state
     this._unsubscribe = useEmployeeStore.subscribe((state) => {
       if (state.viewMode !== this.viewMode) {
         this.viewMode = state.viewMode;
+      }
+      if (state.selectedEmployees !== this.selectedEmployees) {
+        this.selectedEmployees = state.selectedEmployees || [];
       }
     });
     
@@ -100,9 +143,29 @@ export class EmployeeListHeader extends LitElement {
   }
 
   render() {
+    const hasSelectedEmployees = this.selectedEmployees && this.selectedEmployees.length > 0;
+    const isTableView = this.viewMode === 'table';
+    
     return html`
       <div class="title-bar">
-        <div class="title">${t('employeeList.title')}</div>
+        <div class="title">
+          ${t('employeeList.title')}
+          ${hasSelectedEmployees && isTableView ? html`
+            <div class="bulk-actions">
+              <span class="selected-count">
+                ${this.selectedEmployees.length} ${t('employeeList.selectedEmployees')}
+              </span>
+              <button 
+                class="bulk-delete-btn"
+                @click="${this._handleBulkDelete}"
+                title="${t('employeeList.deleteSelected')}"
+              >
+                <span class="material-icons">delete</span>
+                <span>${t('common.delete')}</span>
+              </button>
+            </div>
+          ` : ''}
+        </div>
         <div class="actions">
           ${this._renderModeButton('table', 'density_medium', t('employeeList.viewMode.table'))}
           ${this._renderModeButton('card', 'view_module', t('employeeList.viewMode.card'))}
@@ -131,6 +194,19 @@ export class EmployeeListHeader extends LitElement {
     }
     this.dispatchEvent(new CustomEvent('view-mode-change', {
       detail: { viewMode: mode },
+      bubbles: true,
+      composed: true,
+    }));
+  }
+
+  _handleBulkDelete() {
+    if (!this.selectedEmployees || this.selectedEmployees.length === 0) return;
+    
+    this.dispatchEvent(new CustomEvent('bulk-delete', {
+      detail: { 
+        selectedEmployees: this.selectedEmployees,
+        count: this.selectedEmployees.length 
+      },
       bubbles: true,
       composed: true,
     }));

@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'lit';
 import '../components/navigation.js';
 import '../components/employee-list-header.js';
+import '../components/search-filter.js';
 import '../components/employee-list.js';
 
 export class HomePage extends LitElement {
@@ -27,15 +28,16 @@ export class HomePage extends LitElement {
   `;
 
   render() {
-    return html`
-      <app-navigation current-page="home" language="tr"></app-navigation>
-      <div class="container">
-        <employee-list-header></employee-list-header>
-        <div class="employee-content">
-          <employee-list @employee-edit="${this._handleEmployeeEdit}"></employee-list>
+          return html`
+        <app-navigation current-page="home" language="tr"></app-navigation>
+        <div class="container">
+          <employee-list-header @bulk-delete="${this._handleBulkDelete}"></employee-list-header>
+          <search-filter></search-filter>
+          <div class="employee-content">
+            <employee-list @employee-edit="${this._handleEmployeeEdit}"></employee-list>
+          </div>
         </div>
-      </div>
-    `;
+      `;
   }
 
   _handleEmployeeEdit(event) {
@@ -43,6 +45,17 @@ export class HomePage extends LitElement {
     console.log('Edit employee:', employee);
     // TODO: Navigate to edit page or open edit modal
     alert(`Edit functionality will be implemented for: ${employee.firstName} ${employee.lastName}`);
+  }
+
+  _handleBulkDelete(event) {
+    const { selectedEmployees, count } = event.detail;
+    console.log('Bulk delete requested:', selectedEmployees, count);
+    
+    // Dispatch event to employee-list for modal handling
+    const employeeList = this.shadowRoot.querySelector('employee-list');
+    if (employeeList) {
+      employeeList.handleBulkDelete(selectedEmployees, count);
+    }
   }
 }
 

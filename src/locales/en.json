@@ -8,6 +8,7 @@
     "search": "Search",
     "filter": "Filter",
     "clear": "Clear",
+    "sortBy": "Sort by",
     "loading": "Loading...",
     "noData": "No employees found",
     "confirm": "Confirm",
@@ -29,6 +30,9 @@
     "position": "Position",
     "allDepartments": "All Departments",
     "allPositions": "All Positions",
+    "totalEmployees": "employees",
+    "selectedEmployees": "selected",
+    "deleteSelected": "Delete Selected",
     "departments": {
       "analytics": "Analytics",
       "tech": "Tech"
@@ -78,7 +82,9 @@
     "employeeAdded": "Employee added successfully",
     "employeeUpdated": "Employee updated successfully",
     "employeeDeleted": "Employee deleted successfully",
+    "employeesDeleted": "employees deleted successfully",
     "confirmDelete": "Are you sure you want to delete this employee?",
+    "confirmDeleteEmployee": "will be deleted. Are you sure?",
     "confirmUpdate": "Are you sure you want to save the changes?"
   }
 }

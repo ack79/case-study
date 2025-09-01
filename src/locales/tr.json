@@ -8,6 +8,7 @@
     "search": "Ara",
     "filter": "Filtrele",
     "clear": "Temizle",
+    "sortBy": "Sırala",
     "loading": "Yükleniyor...",
     "noData": "Çalışan bulunamadı",
     "confirm": "Onayla",
@@ -29,6 +30,9 @@
     "position": "Pozisyon",
     "allDepartments": "Tüm Departmanlar",
     "allPositions": "Tüm Pozisyonlar",
+    "totalEmployees": "çalışan",
+    "selectedEmployees": "seçili",
+    "deleteSelected": "Seçilenleri Sil",
     "departments": {
       "analytics": "Analitik",
       "tech": "Teknoloji"
@@ -78,7 +82,9 @@
     "employeeAdded": "Çalışan başarıyla eklendi",
     "employeeUpdated": "Çalışan başarıyla güncellendi",
     "employeeDeleted": "Çalışan başarıyla silindi",
+    "employeesDeleted": "çalışan başarıyla silindi",
     "confirmDelete": "Bu çalışanı silmek istediğinizden emin misiniz?",
+    "confirmDeleteEmployee": "adlı çalışanı silmek istediğinizden emin misiniz?",
     "confirmUpdate": "Değişiklikleri kaydetmek istediğinizden emin misiniz?"
   }
 }

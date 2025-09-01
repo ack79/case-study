@@ -172,11 +172,11 @@ export const useEmployeeStore = createStore(
       },
 
       // Sorting
-      setSortConfig: (field) => {
+      setSortConfig: (field, direction = null) => {
         const currentSort = get().sortConfig;
-        const direction = currentSort.field === field && currentSort.direction === 'asc' ? 'desc' : 'asc';
+        const newDirection = direction || (currentSort.field === field && currentSort.direction === 'asc' ? 'desc' : 'asc');
         
-        set({ sortConfig: { field, direction } });
+        set({ sortConfig: { field, direction: newDirection } });
         get().updateFilteredEmployees();
       },
 
@@ -210,9 +210,15 @@ export const useEmployeeStore = createStore(
         }));
       },
 
-      selectAllEmployees: () => {
-        const currentEmployees = get().getCurrentPageEmployees();
-        set({ selectedEmployees: currentEmployees.map(emp => emp.id) });
+      selectAllEmployees: (employeeIds = null) => {
+        if (employeeIds) {
+          // Select specific employee IDs (for filtered results)
+          set({ selectedEmployees: [...employeeIds] });
+        } else {
+          // Legacy: select current page employees
+          const currentEmployees = get().getCurrentPageEmployees();
+          set({ selectedEmployees: currentEmployees.map(emp => emp.id) });
+        }
       },
 
       clearSelection: () => {
@@ -227,15 +233,27 @@ export const useEmployeeStore = createStore(
 
         // Search
         if (searchTerm) {
-          const term = searchTerm.toLowerCase();
-          filtered = filtered.filter(emp => 
-            emp.firstName.toLowerCase().includes(term) ||
-            emp.lastName.toLowerCase().includes(term) ||
-            emp.email.toLowerCase().includes(term) ||
-            emp.phone.includes(term) ||
-            emp.department.toLowerCase().includes(term) ||
-            emp.position.toLowerCase().includes(term)
-          );
+          const searchTerms = searchTerm.toLowerCase().trim().split(/\s+/).filter(term => term.length > 0);
+          
+          filtered = filtered.filter(emp => {
+            // Individual field searches
+            const firstName = emp.firstName.toLowerCase();
+            const lastName = emp.lastName.toLowerCase();
+            const email = emp.email.toLowerCase();
+            const phoneNumber = emp.phoneNumber.toLowerCase();
+            const department = emp.department.toLowerCase();
+            const position = emp.position.toLowerCase();
+            
+            // Full name search (firstName + lastName combinations)
+            const fullName = `${firstName} ${lastName}`;
+            const reverseFullName = `${lastName} ${firstName}`;
+            
+            // Combine all searchable fields
+            const searchableText = `${firstName} ${lastName} ${fullName} ${reverseFullName} ${email} ${phoneNumber} ${department} ${position}`;
+            
+            // Check if all search terms are found in the searchable text
+            return searchTerms.every(term => searchableText.includes(term));
+          });
         }
 
         // Filters

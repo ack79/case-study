@@ -94,7 +94,7 @@ export class Pagination extends LitElement {
     .page-button--active {
       background-color: #FF620B;
       color: white;
-      border-radius: 4px;
+      border-radius: 50%;
     }
 
     .page-button:disabled {

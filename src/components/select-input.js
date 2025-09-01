@@ -52,6 +52,16 @@ export class SelectInput extends LitElement {
       box-shadow: 0 0 0 3px rgba(255, 98, 11, 0.1);
     }
 
+    .input--open {
+      border-radius: 8px 8px 0 0;
+      border-bottom-color: #FF620B;
+      border-color: #FF620B;
+    }
+
+    .input:focus.input--open {
+      box-shadow: 0 0 0 3px rgba(255, 98, 11, 0.1);
+    }
+
     .input:disabled {
       background-color: #F9FAFB;
       color: #9CA3AF;
@@ -175,18 +185,18 @@ export class SelectInput extends LitElement {
       left: 0;
       right: 0;
       background-color: white;
-      border: 2px solid #E5E7EB;
+      border: 2px solid #FF620B;
       border-top: none;
-      border-radius: 8px;
+      border-radius: 0 0 8px 8px;
       box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      z-index: 1000;
+      z-index: 9999;
       opacity: 0;
       visibility: hidden;
       transform: translateY(-10px);
       transition: all 0.2s ease;
       max-height: 300px;
       overflow: hidden;
-      margin-top: 4px;
+      margin-top: 0px;
       min-width: 100%;
       box-sizing: border-box;
     }
@@ -279,7 +289,7 @@ export class SelectInput extends LitElement {
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 1000;
+      z-index: 9999;
       opacity: 0;
       visibility: hidden;
       transition: all 0.3s ease;
@@ -481,6 +491,7 @@ export class SelectInput extends LitElement {
       `input--${this.size}`,
       this.variant !== 'default' ? `input--${this.variant}` : '',
       'input--has-icon',
+      this._isOpen ? 'input--open' : '',
       this.error ? 'input--error' : ''
     ].filter(Boolean).join(' ');
 

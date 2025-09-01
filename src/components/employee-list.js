@@ -2,15 +2,21 @@ import { LitElement, html, css } from 'lit';
 import './employee-card.js';
 import './button.js';
 import './pagination.js';
+import './modal.js';
 import { useEmployeeStore } from '../store/index.js';
 import { t, addLanguageChangeListener } from '../utils/i18n.js';
+import { toast } from '../utils/toast-manager.js';
 
 export class EmployeeList extends LitElement {
   static properties = {
     viewMode: { type: String }, // 'card' or 'table'
     employees: { type: Array },
     loading: { type: Boolean },
-    selectedEmployees: { type: Array }
+    selectedEmployees: { type: Array },
+    modalOpen: { type: Boolean },
+    employeeToDelete: { type: Object },
+    bulkDeleteMode: { type: Boolean },
+    employeesToDelete: { type: Array }
   };
 
   static styles = css`
@@ -270,6 +276,10 @@ export class EmployeeList extends LitElement {
     this.employees = [];
     this.loading = false;
     this.selectedEmployees = [];
+    this.modalOpen = false;
+    this.employeeToDelete = null;
+    this.bulkDeleteMode = false;
+    this.employeesToDelete = [];
 
     // Subscribe to store changes
     this._unsubscribe = useEmployeeStore.subscribe((state) => {
@@ -313,6 +323,19 @@ export class EmployeeList extends LitElement {
           @items-per-page-change="${this._handleItemsPerPageChange}"
         ></app-pagination>
       </div>
+
+      <app-modal
+        ?is-open="${this.modalOpen}"
+        type="confirm"
+        title="Are you sure?"
+        message="${this._getDeleteMessage()}"
+        confirm-text="Proceed"
+        cancel-text="Cancel"
+        confirm-variant="danger"
+        @modal-confirm="${this._confirmDelete}"
+        @modal-cancel="${this._cancelDelete}"
+        @modal-close="${this._cancelDelete}"
+      ></app-modal>
     `;
   }
 
@@ -438,17 +461,10 @@ export class EmployeeList extends LitElement {
 
   _handleEmployeeDelete(event) {
     const { employee } = event.detail;
-    
-    // Show confirmation dialog
-    const confirmed = confirm(t('messages.confirmDelete'));
-    
-    if (confirmed) {
-      const store = useEmployeeStore.getState();
-      store.deleteEmployee(employee.id);
-      
-      // Show success message
-      this._showNotification('success', t('messages.employeeDeleted'));
-    }
+    console.log('Delete employee:', employee);
+    this.employeeToDelete = employee;
+    this.modalOpen = true;
+    console.log('Modal should be open:', this.modalOpen);
   }
 
   _formatDate(dateString) {
@@ -473,11 +489,11 @@ export class EmployeeList extends LitElement {
 
   _areAllEmployeesSelected() {
     const store = useEmployeeStore.getState();
-    const currentPageEmployees = this.employees;
+    const allFilteredEmployees = store.filteredEmployees || [];
     
-    if (currentPageEmployees.length === 0) return false;
+    if (allFilteredEmployees.length === 0) return false;
     
-    return currentPageEmployees.every(employee => 
+    return allFilteredEmployees.every(employee => 
       store.selectedEmployees?.includes(employee.id)
     );
   }
@@ -487,20 +503,13 @@ export class EmployeeList extends LitElement {
     const allSelected = this._areAllEmployeesSelected();
     
     if (allSelected) {
-      // Deselect all current page employees
-      const currentPageIds = this.employees.map(emp => emp.id);
-      currentPageIds.forEach(id => {
-        if (store.selectedEmployees?.includes(id)) {
-          store.toggleEmployeeSelection(id);
-        }
-      });
+      // Deselect all employees (clear selection completely)
+      store.clearSelection();
     } else {
-      // Select all current page employees
-      this.employees.forEach(employee => {
-        if (!store.selectedEmployees?.includes(employee.id)) {
-          store.toggleEmployeeSelection(employee.id);
-        }
-      });
+      // Select all filtered employees (all pages)
+      const allFilteredEmployees = store.filteredEmployees || [];
+      const allEmployeeIds = allFilteredEmployees.map(emp => emp.id);
+      store.selectAllEmployees(allEmployeeIds);
     }
   }
 
@@ -516,14 +525,60 @@ export class EmployeeList extends LitElement {
     // Store already handles the items per page change via pagination component
   }
 
-  _showNotification(type, message) {
-    // This could be enhanced with a proper notification system
-    console.log(`${type.toUpperCase()}: ${message}`);
-    
-    // For now, just show browser alert
-    if (type === 'success') {
-      alert(message);
+  _getDeleteMessage() {
+    if (this.bulkDeleteMode) {
+      const count = this.employeesToDelete.length;
+      return `${count} selected employee${count > 1 ? 's' : ''} will be deleted`;
     }
+    
+    if (!this.employeeToDelete) return '';
+    return `Selected Employee record of ${this.employeeToDelete.firstName} ${this.employeeToDelete.lastName} will be deleted`;
+  }
+
+  _confirmDelete() {
+    const store = useEmployeeStore.getState();
+    
+    if (this.bulkDeleteMode && this.employeesToDelete.length > 0) {
+      // Bulk delete
+      store.deleteMultipleEmployees(this.employeesToDelete);
+      
+      // Show success toast
+      toast.success(`${this.employeesToDelete.length} ${t('messages.employeesDeleted')}`);
+      
+      // Close modal and reset bulk mode
+      this.modalOpen = false;
+      this.bulkDeleteMode = false;
+      this.employeesToDelete = [];
+    } else if (this.employeeToDelete) {
+      // Single delete
+      store.deleteEmployee(this.employeeToDelete.id);
+      
+      // Show success toast
+      toast.success(t('messages.employeeDeleted'));
+      
+      // Close modal
+      this.modalOpen = false;
+      this.employeeToDelete = null;
+    }
+  }
+
+  _cancelDelete() {
+    this.modalOpen = false;
+    this.employeeToDelete = null;
+    this.bulkDeleteMode = false;
+    this.employeesToDelete = [];
+  }
+
+  // Public method for bulk delete
+  handleBulkDelete(selectedEmployeeIds, count) {
+    this.bulkDeleteMode = true;
+    this.employeesToDelete = selectedEmployeeIds;
+    this.modalOpen = true;
+  }
+
+  _showNotification(type, message) {
+    // Use toast system instead of alert
+    toast[type](message);
   }
 }
 
